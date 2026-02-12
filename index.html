@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Juan Sebastián Rojas Penagos</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700&family=Playfair+Display:wght@700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #1a1a2e; --slate: #3d3d5c; --muted: #6b6b8d;
+  --accent: #0f62fe; --accent2: #00d4aa; --warm: #ff6b35;
+  --bg: #fafbfc; --card: #ffffff; --border: #e8e8f0;
+}
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { font-family:'DM Sans',sans-serif; color:var(--ink); background:var(--bg); line-height:1.5; }
+.cv-page { width:210mm; min-height:297mm; max-width:100%; margin:0 auto; background:white; display:grid; grid-template-columns:72mm 1fr; box-shadow:0 4px 40px rgba(0,0,0,.08); position:relative; overflow:hidden; }
+@media print { .cv-page { box-shadow:none; page-break-after:always; } .portfolio-section, .nav-bar { display:none !important; } }
+.cv-sidebar { background:linear-gradient(170deg,#0f1b33 0%,#1a2744 40%,#0d1f3c 100%); color:#c8d6e5; padding:22mm 6mm 10mm 6mm; display:flex; flex-direction:column; gap:5mm; }
+.cv-photo { width:50mm; height:50mm; border-radius:50%; object-fit:cover; object-position:center top; border:3px solid rgba(255,255,255,.15); margin:0 auto 3mm; display:block; filter:grayscale(15%); }
+.cv-name-side { text-align:center; margin-bottom:2mm; }
+.cv-name-side h1 { font-family:'Playfair Display',serif; font-weight:800; font-size:15pt; color:white; line-height:1.2; letter-spacing:.3px; }
+.cv-name-side .subtitle { font-size:8pt; color:var(--accent2); text-transform:uppercase; letter-spacing:2px; font-weight:700; margin-top:1.5mm; }
+.side-section { margin-bottom:3mm; }
+.side-title { font-size:7pt; text-transform:uppercase; letter-spacing:2.5px; color:var(--accent2); font-weight:700; margin-bottom:2mm; padding-bottom:1mm; border-bottom:1px solid rgba(255,255,255,.1); }
+.side-item { font-size:7.5pt; margin-bottom:1.2mm; line-height:1.4; color:#b0bec5; }
+.side-item strong { color:white; font-weight:500; }
+.side-item a { color:#64b5f6; text-decoration:none; }
+.skill-bar-wrap { margin-bottom:2mm; }
+.skill-bar-label { font-size:7pt; color:#cfd8dc; margin-bottom:.8mm; display:flex; justify-content:space-between; }
+.skill-bar { height:4px; background:rgba(255,255,255,.08); border-radius:2px; overflow:hidden; }
+.skill-bar-fill { height:100%; border-radius:2px; background:linear-gradient(90deg,var(--accent),var(--accent2)); }
+.lang-row { display:flex; justify-content:space-between; font-size:7.5pt; margin-bottom:1mm; }
+.lang-dots { display:flex; gap:2px; }
+.lang-dot { width:6px; height:6px; border-radius:50%; background:rgba(255,255,255,.12); }
+.lang-dot.filled { background:var(--accent2); }
+.cv-main { padding:12mm 8mm 8mm 8mm; display:flex; flex-direction:column; gap:4mm; }
+.main-header { margin-bottom:2mm; }
+.main-header h2 { font-family:'Playfair Display',serif; font-size:11pt; color:var(--ink); font-weight:800; margin-bottom:.5mm; }
+.main-header .tagline { font-size:7.5pt; color:var(--muted); line-height:1.5; }
+.section-title { font-size:7pt; text-transform:uppercase; letter-spacing:2.5px; color:var(--accent); font-weight:700; margin-bottom:2mm; display:flex; align-items:center; gap:2mm; }
+.section-title::after { content:''; flex:1; height:1px; background:var(--border); }
+.exp-block { margin-bottom:3mm; }
+.exp-header { display:flex; justify-content:space-between; align-items:baseline; }
+.exp-role { font-size:8.5pt; font-weight:700; color:var(--ink); }
+.exp-date { font-size:6.5pt; color:var(--muted); font-weight:500; white-space:nowrap; }
+.exp-company { font-size:7.5pt; color:var(--accent); font-weight:500; }
+.exp-bullets { margin-top:1mm; }
+.exp-bullets li { font-size:7pt; color:var(--slate); line-height:1.5; margin-bottom:.8mm; margin-left:3mm; padding-left:1mm; }
+.exp-bullets li::marker { color:var(--accent2); }
+.edu-item { margin-bottom:2mm; }
+.edu-title { font-size:8pt; font-weight:700; }
+.edu-inst { font-size:7pt; color:var(--muted); }
+.cert-grid { display:grid; grid-template-columns:1fr 1fr; gap:1.5mm; }
+.cert-item { font-size:6.5pt; color:var(--slate); padding:1mm 0; border-bottom:1px solid #f0f0f0; }
+.cert-item strong { color:var(--ink); font-weight:500; }
+.pub-item { font-size:7pt; color:var(--slate); line-height:1.5; }
+.pub-item strong { color:var(--ink); }
+.portfolio-section { max-width:1200px; margin:60px auto; padding:0 24px; }
+.port-header { text-align:center; margin-bottom:60px; }
+.port-header h2 { font-family:'Playfair Display',serif; font-size:42px; font-weight:900; color:var(--ink); line-height:1.1; }
+.port-header p { color:var(--muted); font-size:16px; margin-top:12px; max-width:600px; margin-inline:auto; }
+.port-divider { width:60px; height:3px; background:linear-gradient(90deg,var(--accent),var(--accent2)); margin:20px auto 0; border-radius:2px; }
+.port-category { margin-bottom:56px; }
+.port-cat-title { font-family:'JetBrains Mono',monospace; font-size:25px; text-transform:uppercase; letter-spacing:4px; color:var(--accent); font-weight:500; margin-bottom:24px; display:flex; align-items:center; gap:12px; }
+.port-cat-title::before { content:''; width:24px; height:2px; background:var(--accent); }
+.port-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(340px,1fr)); gap:24px; }
+.port-card { background:var(--card); border:1px solid var(--border); border-radius:12px; overflow:hidden; transition:transform .25s,box-shadow .25s; }
+.port-card:hover { transform:translateY(-4px); box-shadow:0 12px 32px rgba(0,0,0,.08); }
+.port-card-img { width:100%; height:200px; object-fit:cover; border-bottom:1px solid var(--border); }
+.port-card-body { padding:20px; }
+.port-card-body h3 { font-size:16px; font-weight:700; margin-bottom:6px; color:var(--ink); }
+.port-card-body p { font-size:13px; color:var(--muted); line-height:1.6; }
+.port-tags { display:flex; flex-wrap:wrap; gap:6px; margin-top:12px; }
+.port-tag { font-size:10px; padding:3px 10px; border-radius:20px; background:rgba(15,98,254,.06); color:var(--accent); font-weight:500; letter-spacing:.3px; }
+.port-tag.green { background:rgba(0,212,170,.08); color:#00a884; }
+.port-tag.warm { background:rgba(255,107,53,.08); color:var(--warm); }
+.port-link { display:inline-flex; align-items:center; gap:6px; margin-top:14px; font-size:12px; font-weight:700; color:var(--accent); text-decoration:none; transition:gap .2s; }
+.port-link:hover { gap:10px; }
+.port-link svg { width:14px; height:14px; }
+.port-cert-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:16px; }
+.port-cert-card { background:var(--card); border:1px solid var(--border); border-radius:10px; padding:20px; display:flex; gap:14px; align-items:center; transition:transform .2s; }
+.port-cert-card:hover { transform:translateY(-2px); }
+.cert-icon-img { width:44px; height:44px; border-radius:10px; object-fit:contain; flex-shrink:0; background:#f8f9fa; padding:4px; }
+.port-cert-info h4 { font-size:13px; font-weight:700; color:var(--ink); line-height:1.3; }
+.port-cert-info p { font-size:11px; color:var(--muted); margin-top:2px; }
+.port-img { height:200px; overflow:hidden; }
+.port-img img { width:100%; height:100%; object-fit:cover; }
+.nav-bar { position:fixed; bottom:24px; left:50%; transform:translateX(-50%); background:rgba(26,26,46,.92); backdrop-filter:blur(12px); padding:10px 28px; border-radius:40px; display:flex; gap:20px; z-index:100; box-shadow:0 8px 32px rgba(0,0,0,.18); align-items:center; }
+.nav-bar a, .nav-bar button { color:#b0bec5; text-decoration:none; font-size:12px; font-weight:500; letter-spacing:.5px; transition:color .2s; background:none; border:none; cursor:pointer; font-family:inherit; }
+.nav-bar a:hover, .nav-bar button:hover { color:var(--accent2); }
+.nav-sep { width:1px; height:16px; background:rgba(255,255,255,.15); }
+.lang-active { color:var(--accent2) !important; font-weight:700 !important; }
+[data-lang="en"] { display:none !important; }
+.lang-en [data-lang="es"] { display:none !important; }
+.lang-en [data-lang="en"] { display:revert !important; }
+.lang-en .section-title[data-lang="en"] { display:flex !important; }
+@media (max-width:800px) {
+  .cv-page { grid-template-columns:1fr; width:100%; min-height:auto; }
+  .cv-sidebar { padding:20px; }
+  .cv-main { padding:20px; }
+  .port-grid { grid-template-columns:1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- CV PAGE -->
+<div class="cv-page" id="cv">
+  <aside class="cv-sidebar">
+    <img src="data:image/jpeg;base64,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" class="cv-photo" alt="Juan Sebastián Rojas Penagos">
+    <div class="cv-name-side">
+      <h1>Juan Sebastián<br>Rojas Penagos</h1>
+      <div class="subtitle" data-lang="es">Ingeniero Industrial</div><div class="subtitle" data-lang="en">Industrial Engineer</div>
+    </div>
+    <div class="side-section">
+      <div class="side-title" data-lang="es">Contacto</div><div class="side-title" data-lang="en">Contact</div>
+      <div class="side-item"> Ibagué, Tolima, Colombia</div>
+      <div class="side-item">📧 <a href="mailto:juansebastian48@hotmail.com">juansebastian48@hotmail.com</a></div>
+      <div class="side-item">🔗 <a href="https://www.linkedin.com/in/juan-sebastian-rojas-penagos-12a943198/">LinkedIn enlace</a></div>
+    </div>
+    <div class="side-section">
+      <div class="side-title" data-lang="es">Herramientas Técnicas</div><div class="side-title" data-lang="en">Technical Tools</div>
+      <div class="skill-bar-wrap"><div class="skill-bar-label"><span>Power BI</span><span>95%</span></div><div class="skill-bar"><div class="skill-bar-fill" style="width:95%"></div></div></div>
+      <div class="skill-bar-wrap"><div class="skill-bar-label"><span>Google Sheets / Apps Script</span><span>95%</span></div><div class="skill-bar"><div class="skill-bar-fill" style="width:95%"></div></div></div>
+      <div class="skill-bar-wrap"><div class="skill-bar-label"><span>Excel / VBA</span><span>90%</span></div><div class="skill-bar"><div class="skill-bar-fill" style="width:90%"></div></div></div>
+      <div class="skill-bar-wrap"><div class="skill-bar-label"><span>Python (Pandas, NumPy)</span><span>75%</span></div><div class="skill-bar"><div class="skill-bar-fill" style="width:75%"></div></div></div>
+      <div class="skill-bar-wrap"><div class="skill-bar-label"><span>R / <span data-lang="es">Estadística Inferencial</span><span data-lang="en">Inferential Statistics</span></span><span>80%</span></div><div class="skill-bar"><div class="skill-bar-fill" style="width:80%"></div></div></div>
+      <div class="skill-bar-wrap"><div class="skill-bar-label"><span>SQL</span><span>60%</span></div><div class="skill-bar"><div class="skill-bar-fill" style="width:60%"></div></div></div>
+      <div class="skill-bar-wrap"><div class="skill-bar-label"><span>HTML / CSS / JavaScript</span><span>80%</span></div><div class="skill-bar"><div class="skill-bar-fill" style="width:80%"></div></div></div>
+      <div class="skill-bar-wrap"><div class="skill-bar-label"><span>SPSS / Atlas.TI</span><span>75%</span></div><div class="skill-bar"><div class="skill-bar-fill" style="width:75%"></div></div></div>
+    </div>
+    <div class="side-section">
+      <div class="side-title" data-lang="es">Experiencia en Herramientas de Diseño</div><div class="side-title" data-lang="en">Design Tools Experience</div>
+      <div class="side-item">Adobe Photoshop · Illustrator · Premiere · InDesign · Figma · Filmora</div>
+    </div>
+    <div class="side-section">
+      <div class="side-title" data-lang="es">Idiomas</div><div class="side-title" data-lang="en">Languages</div>
+      <div class="lang-row"><span data-lang="es">Español</span><span data-lang="en">Spanish</span><div class="lang-dots"><div class="lang-dot filled"></div><div class="lang-dot filled"></div><div class="lang-dot filled"></div><div class="lang-dot filled"></div><div class="lang-dot filled"></div></div></div>
+      <div class="lang-row"><span data-lang="es">English </span><span data-lang="en">English </span><div class="lang-dots"><div class="lang-dot filled"></div><div class="lang-dot filled"></div><div class="lang-dot filled"></div><div class="lang-dot filled"></div><div class="lang-dot"></div></div></div>
+    </div>
+    <div class="side-section">
+      <div class="side-title" data-lang="es">Habilidades Blandas</div><div class="side-title" data-lang="en">Soft Skills</div>
+      <div class="side-item" data-lang="es">Liderazgo de equipos multidisciplinarios · Comunicación asertiva · Pensamiento analítico · Resolución de problemas · Gestión de proyectos · Formación y capacitación · Autonomía e iniciativa</div>
+      <div class="side-item" data-lang="en">Multidisciplinary team leadership · Assertive communication · Analytical thinking · Problem solving · Project management · Training & mentoring · Autonomy & initiative</div>
+    </div>
+  </aside>
+
+  <main class="cv-main">
+    <div class="main-header">
+      <h2 data-lang="es">Perfil Profesional</h2><h2 data-lang="en">Professional Profile</h2>
+      <div class="tagline" data-lang="es">Ingeniero Industrial con más de 2 años de experiencia transformando datos en decisiones estratégicas. Especializado en diseño de dashboards interactivos (Power BI, Google Sheets), automatización de procesos con Google Apps Script y análisis estadístico inferencial. Coautor de artículo indexado en la revista DYNA (Universidad Nacional). Combino habilidades técnicas de análisis de datos con experiencia en gestión de proyectos y formación integral.</div>
+      <div class="tagline" data-lang="en">Industrial Engineer with 2+ years of experience transforming data into strategic decisions. Specialized in interactive dashboard design (Power BI, Google Sheets), process automation with Google Apps Script, and inferential statistical analysis. Co-author of a peer-reviewed article in DYNA journal (Universidad Nacional). Combines technical data analysis skills with project management and comprehensive education experience.</div>
+    </div>
+
+    <div class="section-title" data-lang="es">Experiencia Profesional</div><div class="section-title" data-lang="en">Professional Experience</div>
+    <div class="exp-block">
+      <div class="exp-header">
+        <span class="exp-role" data-lang="es">Asesor Regional / Docente — Semestre Paz y Región</span><span class="exp-role" data-lang="en">Regional Advisor / Instructor — Peace & Region Semester</span>
+        <span class="exp-date" data-lang="es">Ene 2024 — Presente</span><span class="exp-date" data-lang="en">Jan 2024 — Present</span>
+      </div>
+      <div class="exp-company" data-lang="es">Universidad de Ibagué</div><div class="exp-company" data-lang="en">University of Ibagué</div>
+      <ul class="exp-bullets" data-lang="es">
+        <li>Diseñé e implementé un ecosistema de más de 10 herramientas automatizadas en Google Apps Script (3,000+ líneas de código) que reducen en un 80 % el tiempo de gestión administrativa para 12 docentes y 300+ estudiantes por semestre.</li>
+        <li>Creé 4 dashboards interactivos en Power BI con datos históricos desde 2011 (estadísticos descriptivos, mapas coropléticos georreferenciados del Tolima, Ibagué y Colombia, análisis de clúster).</li>
+        <li>Estandaricé y normalicé la base de datos histórica del programa (2011–2026), parametrizando más de 4,000 registros de estudiantes, organizaciones y proyectos.</li>
+        <li>Coautor del artículo "Peace and Region Semester" publicado en la revista DYNA (indexada Q3/Scopus), validando con análisis factorial por componentes principales el impacto del programa en 105 egresados.</li>
+        <li>Gestiono más de 30 proyectos por semestre: formulación con organizaciones, acompañamiento pedagógico y evaluación de resultados.</li>
+      </ul>
+      <ul class="exp-bullets" data-lang="en">
+        <li>Designed and implemented an ecosystem of 10+ automated tools in Google Apps Script (3,000+ lines of code), reducing administrative management time by 80% for 12 instructors and 300+ students per semester.</li>
+        <li>Created 4 interactive Power BI dashboards with historical data since 2011 (descriptive statistics, georeferenced choropleth maps of Tolima, Ibagué, and Colombia, cluster analysis).</li>
+        <li>Standardized and normalized the program's historical database (2011–2026), parameterizing 4,000+ records of students, organizations, and projects.</li>
+        <li>Co-authored "Peace and Region Semester" published in DYNA journal (Q3/Scopus), validating PRS impact on 105 graduates through principal component factor analysis.</li>
+        <li>Manage 30+ projects per semester: formulation with partner organizations, pedagogical support, and outcome evaluation.</li>
+      </ul>
+    </div>
+    <div class="exp-block">
+      <div class="exp-header">
+        <span class="exp-role" data-lang="es">Pasante — Oficina Paz y Región</span><span class="exp-role" data-lang="en">Intern — Peace & Region Office</span>
+        <span class="exp-date" data-lang="es">Jul 2023 — Ene 2024</span><span class="exp-date" data-lang="en">Jul 2023 — Jan 2024</span>
+      </div>
+      <div class="exp-company" data-lang="es">Universidad de Ibagué</div><div class="exp-company" data-lang="en">University of Ibagué</div>
+      <ul class="exp-bullets" data-lang="es">
+        <li>Desarrollé los primeros prototipos de automatización en Google Sheets y Apps Script para la gestión de planes de acción y evaluación de proyectos.</li>
+        <li>Participé en la recolección y limpieza de datos históricos para la estandarización de la información del programa.</li>
+      </ul>
+      <ul class="exp-bullets" data-lang="en">
+        <li>Developed initial automation prototypes in Google Sheets and Apps Script for action plan management and project evaluation.</li>
+        <li>Participated in collecting and cleaning historical data for program information standardization.</li>
+      </ul>
+    </div>
+
+    <div class="section-title" data-lang="es">Educación</div><div class="section-title" data-lang="en">Education</div>
+    <div class="edu-item"><div class="edu-title" data-lang="es">Ingeniero Industrial</div><div class="edu-title" data-lang="en">Industrial Engineer (B.Eng.)</div><div class="edu-inst" data-lang="es">Universidad de Ibagué — Graduado enero 2024</div><div class="edu-inst" data-lang="en">University of Ibagué — Graduated January 2024</div></div>
+    <div class="edu-item"><div class="edu-title" data-lang="es">Técnico en Sistemas</div><div class="edu-title" data-lang="en">IT Technician</div><div class="edu-inst" data-lang="es">SENA / Instituto Técnico Empresarial "El Yopal" — 2014</div><div class="edu-inst" data-lang="en">SENA / Instituto Técnico Empresarial "El Yopal" — 2014</div></div>
+
+    <div class="section-title" data-lang="es">Certificaciones Destacadas</div><div class="section-title" data-lang="en">Key Certifications</div>
+    <div class="cert-grid">
+      <div class="cert-item"><strong>Google Advanced Data Analytics</strong> — Coursera, 2026</div>
+      <div class="cert-item"><strong>Google Data Analytics</strong> — Coursera, 2026</div>
+      <div class="cert-item" data-lang="es"><strong>Ruta Análisis y Visualización de Datos</strong> — Platzi, 2026</div><div class="cert-item" data-lang="en"><strong>Data Analysis & Visualization Track</strong> — Platzi, 2026</div>
+      <div class="cert-item" data-lang="es"><strong>Estadística Inferencial para Data Science</strong> — Platzi, 2026</div><div class="cert-item" data-lang="en"><strong>Inferential Statistics for Data Science</strong> — Platzi, 2026</div>
+      <div class="cert-item" data-lang="es"><strong>Python para Ciencia de Datos</strong> — Platzi, 2026</div><div class="cert-item" data-lang="en"><strong>Python for Data Science</strong> — Platzi, 2026</div>
+      <div class="cert-item" data-lang="es"><strong>Power BI Avanzado</strong> — Platzi, 2026</div><div class="cert-item" data-lang="en"><strong>Advanced Power BI</strong> — Platzi, 2026</div>
+      <div class="cert-item" data-lang="es"><strong>Excel Avanzado para Análisis de Datos</strong> — Platzi, 2026</div><div class="cert-item" data-lang="en"><strong>Advanced Excel for Data Analysis</strong> — Platzi, 2026</div>
+      <div class="cert-item" data-lang="es"><strong>Excel Avanzado con Macros</strong> — Platzi, 2026</div><div class="cert-item" data-lang="en"><strong>Advanced Excel with Macros</strong> — Platzi, 2026</div>
+    </div>
+
+    <div class="section-title" style="margin-top:3mm" data-lang="es">Publicación Científica</div><div class="section-title" style="margin-top:3mm" data-lang="en">Scientific Publication</div>
+    <div class="pub-item">
+      <strong>Rojas-Forero, G.D., Rojas-Penagos, J.S., & Bermeo-Andrade, H.</strong> (2025). Peace and Region Semester, a strategy for comprehensive university training and contribution to regional development. <em>Revista DYNA</em>, 92(237), 38–45. DOI: 10.15446/dyna.v92n237.117379
+    </div>
+  </main>
+</div>
+
+<!-- PORTFOLIO -->
+<section class="portfolio-section" id="portfolio">
+  <div class="port-header">
+    <h2 data-lang="es">Portafolio de Proyectos</h2><h2 data-lang="en">Project Portfolio</h2>
+    <p data-lang="es">Ecosistema de herramientas de análisis de datos, automatización y visualización desarrolladas para el Semestre Paz y Región</p>
+    <p data-lang="en">Data analysis, automation, and visualization ecosystem developed for the Peace & Region Semester</p>
+    <div class="port-divider"></div>
+  </div>
+
+  <!-- DASHBOARDS -->
+  <div class="port-category">
+    <div class="port-cat-title"><span data-lang="es">Dashboards en Power BI</span><span data-lang="en">Power BI Dashboards</span></div>
+    <div id="dash-es" data-lang="es"><div class="port-grid">
+      <div class="port-card">
+        <div class="port-img">
+      <img src="https://lh3.googleusercontent.com/u/0/d/171-ZWuws5hLJBFz9khnDbQRUt_MnF5U6" alt="Dashboard Datos Históricos" style="width:100%; height:100%; object-fit:cover;">
+    </div>
+        <div class="port-card-body">
+          <h3>Dashboard Histórico Semestre Paz y Región</h3>
+          <p>Tablero con estadísticos descriptivos de 15 años de operación: distribución geográfica (mapas coropléticos del Tolima), líneas de proyecto, programas académicos, organizaciones aliadas. +4,000 registros parametrizados.</p>
+          <div class="port-tags">
+            <span class="port-tag">Power BI</span>
+            <span class="port-tag green">Mapas georreferenciados</span>
+            <span class="port-tag warm">+4,000 registros</span>
+          </div>
+          <a href="https://app.powerbi.com/view?r=eyJrIjoiMDhmNjQ0MDAtNWU4OC00OGY0LWJkMTYtNzI0M2RlN2JhZDYxIiwidCI6IjA3NDk4OTU4LTUwYzktNDcyNS05ZTUzLWE1ZDc4YjNhYTkwYyIsImMiOjR9&pageName=5995bc59616324d037e8" target="_blank" class="port-link">Ver Dashboard en vivo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg></a>
+        </div>
+      </div>
+
+      <div class="port-card">
+        <div class="port-img">
+      <img src="https://lh3.googleusercontent.com/u/0/d/1fwi_XkblQzcY_iZkcbLyrJQdb5yGLdvn" alt="Dashboard Datos Históricos" style="width:100%; height:100%; object-fit:cover;">
+    </div>
+        <div class="port-card-body">
+          <h3>Valoración Post-Experiencia SPR</h3>
+          <p>Análisis de la experiencia Paz y Región de acuerdo a la percepción de los estudiantes una vez finalizado su semestre. Recopila el aporte de SPR a la formación integral del estudiante.</p>
+          <div class="port-tags">
+            <span class="port-tag">Power BI</span>
+            <span class="port-tag green">Encuestas Likert</span>
+            <span class="port-tag warm">Analisis de datos</span>
+          </div>
+          <a href="https://app.powerbi.com/view?r=eyJrIjoiNmIwMjRhOGMtZTY2OS00ZTZkLWJkNmEtZWUzZTEzM2E2MmQyIiwidCI6IjA3NDk4OTU4LTUwYzktNDcyNS05ZTUzLWE1ZDc4YjNhYTkwYyIsImMiOjR9&pageName=3181fda90dd4562ad0c1" target="_blank" class="port-link">Ver Dashboard en vivo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg></a>
+        </div>
+      </div>
+
+      <div class="port-card">
+        <div class="port-img">
+      <img src="https://lh3.googleusercontent.com/u/0/d/1b_q2DpcVsCmoYwsRVZz22q8nqdWJNdnj" alt="Dashboard Datos Históricos" style="width:100%; height:100%; object-fit:cover;">
+    </div>
+        <div class="port-card-body">
+          <h3>Valoración Pre-Experiencia SPR</h3>
+          <p>Análisis del pre-conecpto que los estudiantes tienen antes de iniciar su experiencia Paz y Región. Recopila el conocimiento previo que se desarrolla en el seminario SPR.</p>
+          <div class="port-tags">
+            <span class="port-tag">Power BI</span>
+            <span class="port-tag green">Análisis comparativo</span>
+            <span class="port-tag warm">Analisis de datos</span>
+          </div>
+          <a href="https://app.powerbi.com/view?r=eyJrIjoiNTBhMjk0MTAtZTNlYi00OWY1LWI1YzAtYWMwOGI2ZGI1NDYxIiwidCI6IjA3NDk4OTU4LTUwYzktNDcyNS05ZTUzLWE1ZDc4YjNhYTkwYyIsImMiOjR9&pageName=bb939827657a42c5c0d0" target="_blank" class="port-link">Ver Dashboard en vivo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg></a>
+        </div>
+      </div>
+
+      <div class="port-card">
+       <div class="port-img">
+      <img src="https://lh3.googleusercontent.com/u/0/d/171-ZWuws5hLJBFz9khnDbQRUt_MnF5U6" alt="Dashboard Datos Históricos" style="width:100%; height:100%; object-fit:cover;">
+    </div>
+        <div class="port-card-body">
+          <h3>Rúbrica de Calificación y Sugerencias</h3>
+          <p>Dashboard de las evaluaciones por rúbrica del semestre y análisis de texto de las sugerencias de estudiantes a sus pregrados. Análisis cualitativo y cuantitativo combinado.</p>
+          <div class="port-tags">
+            <span class="port-tag">Power BI</span>
+            <span class="port-tag green">Análisis de texto</span>
+            <span class="port-tag warm">Mixto Cual-Cuant</span>
+          </div>
+          <a href="https://app.powerbi.com/view?r=eyJrIjoiZmZiOGMxNzktZDU5ZS00OTUzLWI4ZDgtMmJlMjU4YzVhODA1IiwidCI6IjA3NDk4OTU4LTUwYzktNDcyNS05ZTUzLWE1ZDc4YjNhYTkwYyIsImMiOjR9&pageName=19b502e5bc9ca14bd7de" target="_blank" class="port-link">Ver Dashboard en vivo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg></a>
+        </div>
+      </div>
+    </div></div>
+    <div id="dash-en" data-lang="en"><div class="port-grid">
+      <div class="port-card">
+        <div class="port-img">
+      <img src="https://lh3.googleusercontent.com/u/0/d/171-ZWuws5hLJBFz9khnDbQRUt_MnF5U6" alt="Dashboard Datos Históricos" style="width:100%; height:100%; object-fit:cover;">
+    </div>
+        <div class="port-card-body">
+          <h3>Peace & Region Semester Historical Dashboard</h3>
+          <p>Dashboard with descriptive statistics spanning 15 years of operation: geographic distribution (choropleth maps of Tolima), project lines, academic programs, and partner organizations. 4,000+ parameterized records.</p>
+          <div class="port-tags">
+            <span class="port-tag">Power BI</span>
+            <span class="port-tag green">Georeferenced maps</span>
+            <span class="port-tag warm">4,000+ records</span>
+          </div>
+          <a href="https://app.powerbi.com/view?r=eyJrIjoiMDhmNjQ0MDAtNWU4OC00OGY0LWJkMTYtNzI0M2RlN2JhZDYxIiwidCI6IjA3NDk4OTU4LTUwYzktNDcyNS05ZTUzLWE1ZDc4YjNhYTkwYyIsImMiOjR9&pageName=5995bc59616324d037e8" target="_blank" class="port-link">View Live Dashboard <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg></a>
+        </div>
+      </div>
+
+      <div class="port-card">
+        <div class="port-img">
+      <img src="https://lh3.googleusercontent.com/u/0/d/1fwi_XkblQzcY_iZkcbLyrJQdb5yGLdvn" alt="Dashboard Datos Históricos" style="width:100%; height:100%; object-fit:cover;">
+    </div>
+        <div class="port-card-body">
+          <h3>PRS Post-Experience Assessment</h3>
+          <p>Analysis of the Peace and Region experience based on student perceptions after completing their semester. Captures PRS contributions to comprehensive student development.</p>
+          <div class="port-tags">
+            <span class="port-tag">Power BI</span>
+            <span class="port-tag green">Likert surveys</span>
+            <span class="port-tag warm">Data analysis</span>
+          </div>
+          <a href="https://app.powerbi.com/view?r=eyJrIjoiNmIwMjRhOGMtZTY2OS00ZTZkLWJkNmEtZWUzZTEzM2E2MmQyIiwidCI6IjA3NDk4OTU4LTUwYzktNDcyNS05ZTUzLWE1ZDc4YjNhYTkwYyIsImMiOjR9&pageName=3181fda90dd4562ad0c1" target="_blank" class="port-link">View Live Dashboard <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg></a>
+        </div>
+      </div>
+
+      <div class="port-card">
+        <div class="port-img">
+      <img src="https://lh3.googleusercontent.com/u/0/d/1b_q2DpcVsCmoYwsRVZz22q8nqdWJNdnj" alt="Dashboard Datos Históricos" style="width:100%; height:100%; object-fit:cover;">
+    </div>
+        <div class="port-card-body">
+          <h3>PRS Pre-Experience Assessment</h3>
+          <p>Analysis of students' preconceptions before starting their Peace and Region experience. Captures prior knowledge developed in the PRS seminar.</p>
+          <div class="port-tags">
+            <span class="port-tag">Power BI</span>
+            <span class="port-tag green">Comparative analysis</span>
+            <span class="port-tag warm">Data analysis</span>
+          </div>
+          <a href="https://app.powerbi.com/view?r=eyJrIjoiNTBhMjk0MTAtZTNlYi00OWY1LWI1YzAtYWMwOGI2ZGI1NDYxIiwidCI6IjA3NDk4OTU4LTUwYzktNDcyNS05ZTUzLWE1ZDc4YjNhYTkwYyIsImMiOjR9&pageName=bb939827657a42c5c0d0" target="_blank" class="port-link">View Live Dashboard <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg></a>
+        </div>
+      </div>
+
+      <div class="port-card">
+       <div class="port-img">
+      <img src="https://lh3.googleusercontent.com/u/0/d/171-ZWuws5hLJBFz9khnDbQRUt_MnF5U6" alt="Dashboard Datos Históricos" style="width:100%; height:100%; object-fit:cover;">
+    </div>
+        <div class="port-card-body">
+          <h3>Grading Rubric & Student Suggestions</h3>
+          <p>Dashboard of semester rubric evaluations and text analysis of student suggestions to their programs. Combined qualitative and quantitative analysis.</p>
+          <div class="port-tags">
+            <span class="port-tag">Power BI</span>
+            <span class="port-tag green">Text analysis</span>
+            <span class="port-tag warm">Mixed Qual-Quant</span>
+          </div>
+          <a href="https://app.powerbi.com/view?r=eyJrIjoiZmZiOGMxNzktZDU5ZS00OTUzLWI4ZDgtMmJlMjU4YzVhODA1IiwidCI6IjA3NDk4OTU4LTUwYzktNDcyNS05ZTUzLWE1ZDc4YjNhYTkwYyIsImMiOjR9&pageName=19b502e5bc9ca14bd7de" target="_blank" class="port-link">View Live Dashboard <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg></a>
+        </div>
+      </div>
+    </div></div>
+  </div>
+
+  <!-- AUTOMATION -->
+  <div class="port-category">
+    <div class="port-cat-title"><span data-lang="es">Automatización y Aplicaciones Web</span><span data-lang="en">Automation & Web Applications</span></div>
+    <div id="auto-es" data-lang="es"><div class="port-grid">
+      <div class="port-card">
+        <div style="height:200px;background:linear-gradient(160deg,#0d1b2a 0%,#1b2838 50%,#1a2744 100%);display:flex;align-items:center;justify-content:center;color:white;padding:28px;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:12px;text-align:left;line-height:2.0;color:#e2e8f0;">
+            <span style="color:#7ec8e3">function</span> <span style="color:#e2e8f0">crearEstructuraCarpetas</span><span style="color:#94a3b8">(</span>nombre, url<span style="color:#94a3b8">) {</span><br>
+&nbsp;&nbsp;<span style="color:#5b8c5a">// 300+ estudiantes por semestre</span><br>
+&nbsp;&nbsp;<span style="color:#7ec8e3">var</span> arbol = <span style="color:#f0c674">agruparPorAsesor</span><span style="color:#94a3b8">(</span>datos<span style="color:#94a3b8">);</span><br>
+&nbsp;&nbsp;<span style="color:#f0c674">crearSubcarpetas</span><span style="color:#94a3b8">(</span>arbol<span style="color:#94a3b8">);</span><br>
+<span style="color:#94a3b8">}</span>
+          </div>
+        </div>
+        <div class="port-card-body">
+          <h3>Gestión Documental Automatizada</h3>
+          <p>Sistema de creación masiva de +1,500 carpetas en Google Drive con estructura jerárquica (Asesor → Organización → Equipo), generación automática de Planes de Acción, Bitácoras y Acuerdos Pedagógicos. Extracción de datos de PDF para la copia de los certificados en la carpeta de cada estudiante.</p>
+          <div class="port-tags">
+            <span class="port-tag">Google Apps Script</span>
+            <span class="port-tag green">Google Drive API</span>
+            <span class="port-tag warm">HTML/CSS/JS</span>
+          </div>
+          <a href="https://drive.google.com/drive/folders/1qvjia_PIBcYjXwA-oiad-RX5JaV7qnpI?usp=sharing" target="_blank" class="port-link">Ver documentación y archivo Google Sheets<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg></a>
+        </div>
+      </div>
+
+      <div class="port-card">
+       <div class="port-img">
+      <img src="https://lh3.googleusercontent.com/u/0/d/13YNemU8F6RQ_6iC20MZOuJ98LphoMJME" alt="Dashboard Datos Históricos" style="width:100%; height:120%; object-fit:cover;">
+    </div>
+        <div class="port-card-body">
+          <h3>Manual de usuario: Conceptos basicos Excel/Google Sheets y preparación del semestre</h3>
+          <p>Documentación (informes y videotutoriales) para capacitar al personal de SPR encargado de la preparación, gestión y captación de la información generada por cada estudiante durante su experiencia Paz y Región.</p>
+          <div class="port-tags">
+            <span class="port-tag">Formulas</span>
+            <span class="port-tag green">Excel/Google Sheets</span>
+            <span class="port-tag warm">Tutorial</span>
+          </div>
+          <a href="https://drive.google.com/drive/folders/1zOCUibB0B8BNSKdFRLhCmbSUNGHDVVaR?usp=sharing" target="_blank" class="port-link">Ver documentación y archivo Google Sheets<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg></a>
+        </div>
+        
+      </div>
+
+      <div class="port-card">
+        <div style="height:200px;background:linear-gradient(160deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%);display:flex;align-items:center;justify-content:center;color:white;font-family:'Playfair Display',serif;font-size:20px;font-weight:800;text-align:center;padding:24px;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:12px;text-align:left;line-height:2.0;color:#e2e8f0;">
+            <span style="color:#c792ea">if</span> <span style="color:#94a3b8">(</span>item.tipo === <span style="color:#c3e88d">'tech'</span><span style="color:#94a3b8">) {</span><br>
+&nbsp;&nbsp;<span style="color:#7ec8e3">let</span> stock = <span style="color:#f0c674">consultarStock</span><span style="color:#94a3b8">(</span>talla<span style="color:#94a3b8">);</span><br>
+&nbsp;&nbsp;<span style="color:#f0c674">registrarPrestamo</span><span style="color:#94a3b8">(</span>datos<span style="color:#94a3b8">);</span><br>
+&nbsp;&nbsp;<span style="color:#f0c674">enviarCorreo</span><span style="color:#94a3b8">(</span><span style="color:#c3e88d">'PRESTAMO'</span><span style="color:#94a3b8">);</span><br>
+<span style="color:#94a3b8">}</span>
+          </div>
+        </div>
+        
+        <div class="port-card-body">
+          <h3>Aplicación web Gestión del inventariado</h3>
+          <p>Web app con Dashboard en Chart.js, registro de préstamos multiítem, devoluciones parciales/totales, correos automáticos HTML, reporte de deudores y recordatorios masivos. 2,200+ líneas de código.</p>
+          <div class="port-tags">
+            <span class="port-tag">Apps Script Web App</span>
+            <span class="port-tag green">Chart.js</span>
+            <span class="port-tag warm">Gmail API</span>
+          </div>
+          <a href="https://drive.google.com/drive/folders/1aJntx8wQ-ibDIKQ6QdacJe615CDPlXy8?usp=drive_link" target="_blank" class="port-link">Ver documentación y archivo Google Sheets<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg></a>
+        </div>
+      </div>
+
+      <div class="port-card">
+        <div style="height:200px;background:linear-gradient(160deg,#1b1b2f 0%,#2d132c 50%,#3a1c3f 100%);display:flex;align-items:center;padding:28px 32px;border-radius:12px 12px 0 0;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:12px;text-align:left;line-height:2.0;color:#e2e8f0;">
+            <span style="color:#c792ea">function</span> <span style="color:#e2e8f0">generarConsolidado</span><span style="color:#94a3b8">(</span>sheet<span style="color:#94a3b8">) {</span><br>
+&nbsp;&nbsp;<span style="color:#5b8c5a">// PDF automático por docente</span><br>
+&nbsp;&nbsp;<span style="color:#7ec8e3">const</span> archivos = <span style="color:#f0c674">preConvertir</span><span style="color:#94a3b8">(</span>ss<span style="color:#94a3b8">);</span><br>
+&nbsp;&nbsp;<span style="color:#f0c674">procesarMomento</span><span style="color:#94a3b8">(</span>config<span style="color:#94a3b8">);</span><br>
+<span style="color:#94a3b8">}</span>
+          </div>
+        </div>
+        <div class="port-card-body">
+          <h3>Evaluación Automatizada y Generación de Informes</h3>
+          <p>Sistema que consolida la evaluación cuantitativa y cualitativa de cada docente deacuerdo a la experiencia vivida por estudiante. Genera un PDF automatico que recopila en un solo documento todas las evaluaciones de cada docente. Tambien, consolida, parametriza, normaliza y estandariza la nota de los estudiantes por cada semestre para alimentar el Dashboard "Rubrica consolidada" de PowerBi.</p>
+          <div class="port-tags">
+            <span class="port-tag">Google Docs API</span>
+            <span class="port-tag green">PDF generador</span>
+            <span class="port-tag warm">Evaluación y seguimiento</span>
+          </div>
+          <a href="https://drive.google.com/drive/folders/1mMdRIWxFZhqA7bj1dELu6zQvzAgxu7gV?usp=drive_link" target="_blank" class="port-link">Ver documentación y archivo Google Sheets<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg></a>
+        </div>
+      </div>
+
+      <div class="port-card">
+        <div style="height:200px;background:linear-gradient(160deg,#0a2239 0%,#132e32 50%,#1a3a3a 100%);display:flex;align-items:center;padding:28px 32px;border-radius:12px 12px 0 0;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:12px;text-align:left;line-height:2.0;color:#e2e8f0;">
+            <span style="color:#7ec8e3">for</span> <span style="color:#94a3b8">(</span><span style="color:#7ec8e3">let</span> i = <span style="color:#f78c6c">0</span>; i &lt; datos.length; i++<span style="color:#94a3b8">) {</span><br>
+&nbsp;&nbsp;<span style="color:#c792ea">if</span> <span style="color:#94a3b8">(</span>datos[i][<span style="color:#f78c6c">0</span>] !== <span style="color:#c3e88d">'Total'</span><span style="color:#94a3b8">) {</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#f0c674">registrarPlaza</span><span style="color:#94a3b8">(</span>datos[i]<span style="color:#94a3b8">);</span><br>
+&nbsp;&nbsp;<span style="color:#94a3b8">}</span><br>
+<span style="color:#94a3b8">}</span>
+          </div>
+        </div>
+        <div class="port-card-body">
+          <h3>Gestión de plazas</h3>
+          <p>Archivo para la consolidación y estandarización de los posibles proyectos de SPR gestionados en los periodos intersemestrales. Generador automatico de tablas para evaluar el estado de gestión actual durante el periodo intersemestral.</p>
+          <div class="port-tags">
+            <span class="port-tag">Google Sheets</span>
+            <span class="port-tag green">Drive API</span>
+            <span class="port-tag warm">Gestión</span>
+          </div>
+          <a href="https://drive.google.com/drive/folders/1PmmhbAlzd75tYSjAisDSO0BkLWAA8sqw?usp=sharing" target="_blank" class="port-link">Ver documentación y archivo Google Sheets<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg></a>
+        </div>
+      </div>
+
+      <div class="port-card">
+        <div style="height:200px;background:linear-gradient(160deg,#1a0a2e 0%,#2a1a4e 50%,#1e1247 100%);display:flex;align-items:center;padding:28px 32px;border-radius:12px 12px 0 0;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:12px;text-align:left;line-height:2.0;color:#e2e8f0;">
+            <span style="color:#c792ea">function</span> <span style="color:#e2e8f0">generarInforme</span><span style="color:#94a3b8">() {</span><br>
+&nbsp;&nbsp;<span style="color:#7ec8e3">const</span> ss = <span style="color:#f0c674">getActiveSpreadsheet</span><span style="color:#94a3b8">();</span><br>
+&nbsp;&nbsp;<span style="color:#7ec8e3">const</span> doc = <span style="color:#f0c674">crearDocumento</span><span style="color:#94a3b8">(</span>nombre<span style="color:#94a3b8">);</span><br>
+&nbsp;&nbsp;<span style="color:#f0c674">generarSlides</span><span style="color:#94a3b8">(</span>datos, plantilla<span style="color:#94a3b8">);</span><br>
+<span style="color:#94a3b8">}</span>
+          </div>
+        </div>
+        <div class="port-card-body">
+          <h3>Plan de Acción</h3>
+          <p>Documento en Google Sheets para la sistematización y consolidación de los aspectos fundamentales para cada proyecto. Organiza y agenda el cronograma de trabajo semestral a través de las funciones de organización de la tabla de actividades. Genera informe (Google Docs) y una presentación (Google Slide) para presentarlo a los distintos aliados del Semestre Paz y Región.</p>
+          <div class="port-tags">
+            <span class="port-tag">Google Slides API</span>
+            <span class="port-tag green">Docs API</span>
+            <span class="port-tag warm">Email</span>
+          </div>
+          <a href="https://drive.google.com/drive/folders/1yrmFiRiezTr0olqcN4L0c7L6A2U_4COZ?usp=sharing" target="_blank" class="port-link">Ver documentación y archivo Google Sheets<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg></a>
+        </div>
+      </div>
+
+      <div class="port-card">
+        <div style="height:200px;background:linear-gradient(160deg,#1c1c1c 0%,#2d2d3a 50%,#1a1a2e 100%);display:flex;align-items:center;padding:28px 32px;border-radius:12px 12px 0 0;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:12px;text-align:left;line-height:2.0;color:#e2e8f0;">
+            <span style="color:#7ec8e3">for</span> <span style="color:#94a3b8">(</span><span style="color:#7ec8e3">let</span> i = <span style="color:#f78c6c">1</span>; i &lt; datosBD.length; i++<span style="color:#94a3b8">) {</span><br>
+&nbsp;&nbsp;<span style="color:#c792ea">if</span> <span style="color:#94a3b8">(</span>fila[<span style="color:#f78c6c">0</span>] === docenteNombre<span style="color:#94a3b8">) {</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#f0c674">enviarCertificado</span><span style="color:#94a3b8">(</span>email<span style="color:#94a3b8">);</span><br>
+&nbsp;&nbsp;<span style="color:#94a3b8">}</span><br>
+<span style="color:#94a3b8">}</span>
+          </div>
+        </div>
+        <div class="port-card-body">
+          <h3>Rúbrica de calificación</h3>
+          <p>Archivo para la consolidación de notas del semestre por cada momento (en total 3 por semestre). Tambien, cuenta con la función de envió de correo personalizado por estudiante, además, de la generación de certificados de excelencia y referencias laborales por cada estudiante según su calificación cualitativa.</p>
+          <div class="port-tags">
+            <span class="port-tag">Google Slides API</span>
+            <span class="port-tag green">Docs API</span>
+            <span class="port-tag warm">Email</span>
+          </div>
+          <a href="https://drive.google.com/drive/folders/1QR61q9AMAneVWWUH59hl6TBB9OGqP5Do?usp=drive_link" target="_blank" class="port-link">Ver documentación y archivo Google Sheets<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg></a>
+        </div>
+      </div>
+
+      <div class="port-card">
+        <div style="height:200px;background:linear-gradient(160deg,#0b1622 0%,#152238 50%,#1a2e50 100%);display:flex;align-items:center;padding:28px 32px;border-radius:12px 12px 0 0;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:12px;text-align:left;line-height:2.0;color:#e2e8f0;">
+            <span style="color:#c792ea">function</span> <span style="color:#e2e8f0">agendarCalendar</span><span style="color:#94a3b8">(</span>org<span style="color:#94a3b8">) {</span><br>
+&nbsp;&nbsp;<span style="color:#5b8c5a">// Masivo por organización</span><br>
+&nbsp;&nbsp;<span style="color:#7ec8e3">let</span> fecha = <span style="color:#f0c674">parseDateFromSheet</span><span style="color:#94a3b8">(</span>val<span style="color:#94a3b8">);</span><br>
+&nbsp;&nbsp;<span style="color:#f0c674">CalendarApp.createEvent</span><span style="color:#94a3b8">(</span>titulo<span style="color:#94a3b8">);</span><br>
+<span style="color:#94a3b8">}</span>
+          </div>
+        </div>
+        <div class="port-card-body">
+          <h3>Planilla de seguimiento semestral</h3>
+          <p>Documento auxiliar para realizar el seguimiento de las actividades del semestre, además, consolidar la información de los proyectos en un solo sitió. Tambien, cuenta con la opción de agendamiento masivo personalizado en Google Calendar por organización.</p>
+          <div class="port-tags">
+            <span class="port-tag">Google Calendar</span>
+            <span class="port-tag green">Sheets API</span>
+            <span class="port-tag warm">Gestión</span>
+          </div>
+          <a href="https://drive.google.com/drive/folders/1BSxBcVCxIDS6zKTifDLl_P1FaF33y9qV?usp=sharing" target="_blank" class="port-link">Ver documentación y archivo Google Sheets<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg></a>
+        </div>
+      </div>
+
+    </div></div>
+    <div id="auto-en" data-lang="en"><div class="port-grid">
+      <div class="port-card">
+        <div style="height:200px;background:linear-gradient(160deg,#0d1b2a 0%,#1b2838 50%,#1a2744 100%);display:flex;align-items:center;justify-content:center;color:white;padding:28px;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:12px;text-align:left;line-height:2.0;color:#e2e8f0;">
+            <span style="color:#7ec8e3">function</span> <span style="color:#e2e8f0">crearEstructuraCarpetas</span><span style="color:#94a3b8">(</span>nombre, url<span style="color:#94a3b8">) {</span><br>
+&nbsp;&nbsp;<span style="color:#5b8c5a">// 300+ students per semester</span><br>
+&nbsp;&nbsp;<span style="color:#7ec8e3">var</span> arbol = <span style="color:#f0c674">agruparPorAsesor</span><span style="color:#94a3b8">(</span>datos<span style="color:#94a3b8">);</span><br>
+&nbsp;&nbsp;<span style="color:#f0c674">crearSubcarpetas</span><span style="color:#94a3b8">(</span>arbol<span style="color:#94a3b8">);</span><br>
+<span style="color:#94a3b8">}</span>
+          </div>
+        </div>
+        <div class="port-card-body">
+          <h3>Automated Document Management</h3>
+          <p>Mass creation of 1,500+ Google Drive folders with hierarchical structure (Advisor → Organization → Team), automatic generation of Action Plans, Logbooks, and Pedagogical Agreements. PDF data extraction for copying certificates to each student's folder.</p>
+          <div class="port-tags">
+            <span class="port-tag">Google Apps Script</span>
+            <span class="port-tag green">Google Drive API</span>
+            <span class="port-tag warm">HTML/CSS/JS</span>
+          </div>
+          <a href="https://drive.google.com/drive/folders/1qvjia_PIBcYjXwA-oiad-RX5JaV7qnpI?usp=sharing" target="_blank" class="port-link">View documentation & Google Sheets<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg></a>
+        </div>
+      </div>
+
+      <div class="port-card">
+       <div class="port-img">
+      <img src="https://lh3.googleusercontent.com/u/0/d/13YNemU8F6RQ_6iC20MZOuJ98LphoMJME" alt="Dashboard Datos Históricos" style="width:100%; height:120%; object-fit:cover;">
+    </div>
+        <div class="port-card-body">
+          <h3>User Manual: Excel/Google Sheets Basics & Semester Preparation</h3>
+          <p>Documentation (reports and video tutorials) to train PRS staff in charge of preparing, managing, and capturing information generated by each student during their Peace and Region experience.</p>
+          <div class="port-tags">
+            <span class="port-tag">Formulas</span>
+            <span class="port-tag green">Excel/Google Sheets</span>
+            <span class="port-tag warm">Tutorial</span>
+          </div>
+          <a href="https://drive.google.com/drive/folders/1zOCUibB0B8BNSKdFRLhCmbSUNGHDVVaR?usp=sharing" target="_blank" class="port-link">View documentation & Google Sheets<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg></a>
+        </div>
+        
+      </div>
+
+      <div class="port-card">
+        <div style="height:200px;background:linear-gradient(160deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%);display:flex;align-items:center;justify-content:center;color:white;font-family:'Playfair Display',serif;font-size:20px;font-weight:800;text-align:center;padding:24px;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:12px;text-align:left;line-height:2.0;color:#e2e8f0;">
+            <span style="color:#c792ea">if</span> <span style="color:#94a3b8">(</span>item.tipo === <span style="color:#c3e88d">'tech'</span><span style="color:#94a3b8">) {</span><br>
+&nbsp;&nbsp;<span style="color:#7ec8e3">let</span> stock = <span style="color:#f0c674">consultarStock</span><span style="color:#94a3b8">(</span>talla<span style="color:#94a3b8">);</span><br>
+&nbsp;&nbsp;<span style="color:#f0c674">registrarPrestamo</span><span style="color:#94a3b8">(</span>datos<span style="color:#94a3b8">);</span><br>
+&nbsp;&nbsp;<span style="color:#f0c674">enviarCorreo</span><span style="color:#94a3b8">(</span><span style="color:#c3e88d">'PRESTAMO'</span><span style="color:#94a3b8">);</span><br>
+<span style="color:#94a3b8">}</span>
+          </div>
+        </div>
+        
+        <div class="port-card-body">
+          <h3>Inventory Management Web Application</h3>
+          <p>Web app with Chart.js Dashboard, multi-item loan registration, partial/full returns, automatic HTML emails, debtor reports, and mass reminders. 2,200+ lines of code.</p>
+          <div class="port-tags">
+            <span class="port-tag">Apps Script Web App</span>
+            <span class="port-tag green">Chart.js</span>
+            <span class="port-tag warm">Gmail API</span>
+          </div>
+          <a href="https://drive.google.com/drive/folders/1aJntx8wQ-ibDIKQ6QdacJe615CDPlXy8?usp=drive_link" target="_blank" class="port-link">View documentation & Google Sheets<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg></a>
+        </div>
+      </div>
+
+      <div class="port-card">
+        <div style="height:200px;background:linear-gradient(160deg,#1b1b2f 0%,#2d132c 50%,#3a1c3f 100%);display:flex;align-items:center;padding:28px 32px;border-radius:12px 12px 0 0;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:12px;text-align:left;line-height:2.0;color:#e2e8f0;">
+            <span style="color:#c792ea">function</span> <span style="color:#e2e8f0">generarConsolidado</span><span style="color:#94a3b8">(</span>sheet<span style="color:#94a3b8">) {</span><br>
+&nbsp;&nbsp;<span style="color:#5b8c5a">// Auto PDF per advisor</span><br>
+&nbsp;&nbsp;<span style="color:#7ec8e3">const</span> archivos = <span style="color:#f0c674">preConvertir</span><span style="color:#94a3b8">(</span>ss<span style="color:#94a3b8">);</span><br>
+&nbsp;&nbsp;<span style="color:#f0c674">procesarMomento</span><span style="color:#94a3b8">(</span>config<span style="color:#94a3b8">);</span><br>
+<span style="color:#94a3b8">}</span>
+          </div>
+        </div>
+        <div class="port-card-body">
+          <h3>Automated Evaluation & Report Generation</h3>
+          <p>System that consolidates quantitative and qualitative evaluation of each advisor based on student experience. Generates an automatic PDF compiling all evaluations per advisor. Also consolidates, parameterizes, normalizes, and standardizes student grades each semester to feed the "Consolidated Rubric" Power BI Dashboard.</p>
+          <div class="port-tags">
+            <span class="port-tag">Google Docs API</span>
+            <span class="port-tag green">PDF generator</span>
+            <span class="port-tag warm">Evaluation & tracking</span>
+          </div>
+          <a href="https://drive.google.com/drive/folders/1mMdRIWxFZhqA7bj1dELu6zQvzAgxu7gV?usp=drive_link" target="_blank" class="port-link">View documentation & Google Sheets<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg></a>
+        </div>
+      </div>
+
+      <div class="port-card">
+        <div style="height:200px;background:linear-gradient(160deg,#0a2239 0%,#132e32 50%,#1a3a3a 100%);display:flex;align-items:center;padding:28px 32px;border-radius:12px 12px 0 0;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:12px;text-align:left;line-height:2.0;color:#e2e8f0;">
+            <span style="color:#7ec8e3">for</span> <span style="color:#94a3b8">(</span><span style="color:#7ec8e3">let</span> i = <span style="color:#f78c6c">0</span>; i &lt; datos.length; i++<span style="color:#94a3b8">) {</span><br>
+&nbsp;&nbsp;<span style="color:#c792ea">if</span> <span style="color:#94a3b8">(</span>datos[i][<span style="color:#f78c6c">0</span>] !== <span style="color:#c3e88d">'Total'</span><span style="color:#94a3b8">) {</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#f0c674">registrarPlaza</span><span style="color:#94a3b8">(</span>datos[i]<span style="color:#94a3b8">);</span><br>
+&nbsp;&nbsp;<span style="color:#94a3b8">}</span><br>
+<span style="color:#94a3b8">}</span>
+          </div>
+        </div>
+        <div class="port-card-body">
+          <h3>Placement Management</h3>
+          <p>File for consolidation and standardization of potential PRS projects managed during inter-semester periods. Automatic table generator to evaluate current management status during the inter-semester period.</p>
+          <div class="port-tags">
+            <span class="port-tag">Google Sheets</span>
+            <span class="port-tag green">Drive API</span>
+            <span class="port-tag warm">Management</span>
+          </div>
+          <a href="https://drive.google.com/drive/folders/1PmmhbAlzd75tYSjAisDSO0BkLWAA8sqw?usp=sharing" target="_blank" class="port-link">View documentation & Google Sheets<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg></a>
+        </div>
+      </div>
+
+      <div class="port-card">
+        <div style="height:200px;background:linear-gradient(160deg,#1a0a2e 0%,#2a1a4e 50%,#1e1247 100%);display:flex;align-items:center;padding:28px 32px;border-radius:12px 12px 0 0;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:12px;text-align:left;line-height:2.0;color:#e2e8f0;">
+            <span style="color:#c792ea">function</span> <span style="color:#e2e8f0">generarInforme</span><span style="color:#94a3b8">() {</span><br>
+&nbsp;&nbsp;<span style="color:#7ec8e3">const</span> ss = <span style="color:#f0c674">getActiveSpreadsheet</span><span style="color:#94a3b8">();</span><br>
+&nbsp;&nbsp;<span style="color:#7ec8e3">const</span> doc = <span style="color:#f0c674">crearDocumento</span><span style="color:#94a3b8">(</span>nombre<span style="color:#94a3b8">);</span><br>
+&nbsp;&nbsp;<span style="color:#f0c674">generarSlides</span><span style="color:#94a3b8">(</span>datos, plantilla<span style="color:#94a3b8">);</span><br>
+<span style="color:#94a3b8">}</span>
+          </div>
+        </div>
+        <div class="port-card-body">
+          <h3>Action Plan</h3>
+          <p>Google Sheets document for systematizing and consolidating fundamental aspects of each project. Organizes and schedules the semester work timeline through activity table functions. Generates reports (Google Docs) and presentations (Google Slides) for Peace and Region Semester partners.</p>
+          <div class="port-tags">
+            <span class="port-tag">Google Slides API</span>
+            <span class="port-tag green">Docs API</span>
+            <span class="port-tag warm">Email</span>
+          </div>
+          <a href="https://drive.google.com/drive/folders/1yrmFiRiezTr0olqcN4L0c7L6A2U_4COZ?usp=sharing" target="_blank" class="port-link">View documentation & Google Sheets<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg></a>
+        </div>
+      </div>
+
+      <div class="port-card">
+        <div style="height:200px;background:linear-gradient(160deg,#1c1c1c 0%,#2d2d3a 50%,#1a1a2e 100%);display:flex;align-items:center;padding:28px 32px;border-radius:12px 12px 0 0;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:12px;text-align:left;line-height:2.0;color:#e2e8f0;">
+            <span style="color:#7ec8e3">for</span> <span style="color:#94a3b8">(</span><span style="color:#7ec8e3">let</span> i = <span style="color:#f78c6c">1</span>; i &lt; datosBD.length; i++<span style="color:#94a3b8">) {</span><br>
+&nbsp;&nbsp;<span style="color:#c792ea">if</span> <span style="color:#94a3b8">(</span>fila[<span style="color:#f78c6c">0</span>] === docenteNombre<span style="color:#94a3b8">) {</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#f0c674">enviarCertificado</span><span style="color:#94a3b8">(</span>email<span style="color:#94a3b8">);</span><br>
+&nbsp;&nbsp;<span style="color:#94a3b8">}</span><br>
+<span style="color:#94a3b8">}</span>
+          </div>
+        </div>
+        <div class="port-card-body">
+          <h3>Grading Rubric</h3>
+          <p>File for consolidating semester grades per evaluation period (3 total per semester). Also features personalized email sending per student, plus generation of excellence certificates and work references for each student based on their qualitative grade.</p>
+          <div class="port-tags">
+            <span class="port-tag">Google Slides API</span>
+            <span class="port-tag green">Docs API</span>
+            <span class="port-tag warm">Email</span>
+          </div>
+          <a href="https://drive.google.com/drive/folders/1QR61q9AMAneVWWUH59hl6TBB9OGqP5Do?usp=drive_link" target="_blank" class="port-link">View documentation & Google Sheets<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg></a>
+        </div>
+      </div>
+
+      <div class="port-card">
+        <div style="height:200px;background:linear-gradient(160deg,#0b1622 0%,#152238 50%,#1a2e50 100%);display:flex;align-items:center;padding:28px 32px;border-radius:12px 12px 0 0;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:12px;text-align:left;line-height:2.0;color:#e2e8f0;">
+            <span style="color:#c792ea">function</span> <span style="color:#e2e8f0">agendarCalendar</span><span style="color:#94a3b8">(</span>org<span style="color:#94a3b8">) {</span><br>
+&nbsp;&nbsp;<span style="color:#5b8c5a">// Mass per organization</span><br>
+&nbsp;&nbsp;<span style="color:#7ec8e3">let</span> fecha = <span style="color:#f0c674">parseDateFromSheet</span><span style="color:#94a3b8">(</span>val<span style="color:#94a3b8">);</span><br>
+&nbsp;&nbsp;<span style="color:#f0c674">CalendarApp.createEvent</span><span style="color:#94a3b8">(</span>titulo<span style="color:#94a3b8">);</span><br>
+<span style="color:#94a3b8">}</span>
+          </div>
+        </div>
+        <div class="port-card-body">
+          <h3>Semester Tracking Sheet</h3>
+          <p>Auxiliary document for tracking semester activities and consolidating project information in one place. Also features mass personalized scheduling in Google Calendar by organization.</p>
+          <div class="port-tags">
+            <span class="port-tag">Google Calendar</span>
+            <span class="port-tag green">Sheets API</span>
+            <span class="port-tag warm">Management</span>
+          </div>
+          <a href="https://drive.google.com/drive/folders/1BSxBcVCxIDS6zKTifDLl_P1FaF33y9qV?usp=sharing" target="_blank" class="port-link">View documentation & Google Sheets<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg></a>
+        </div>
+      </div>
+
+    </div></div>
+  </div>
+
+  <!-- RESEARCH -->
+  <div class="port-category">
+    <div class="port-cat-title"><span data-lang="es">Investigación Publicada</span><span data-lang="en">Published Research</span></div>
+    <div data-lang="es"><div class="port-grid">
+      <div class="port-card" style="grid-column:1/-1;">
+        <div style="display:grid;grid-template-columns:280px 1fr;min-height:200px;">
+          <div style="background:linear-gradient(135deg,#37474f,#455a64);display:flex;align-items:center;justify-content:center;padding:24px;">
+            <div style="text-align:center;color:white;">
+              <div style="font-family:'Playfair Display',serif;font-size:36px;font-weight:900;">DYNA</div>
+              <div style="font-size:11px;margin-top:4px;opacity:.8;">Rev. Universidad Nacional de Colombia</div>
+              <div style="font-size:11px;margin-top:2px;opacity:.7;">Vol. 92(237) · pp. 38–45 · 2025</div>
+              <div style="margin-top:12px;font-size:10px;padding:4px 12px;border:1px solid rgba(255,255,255,.3);border-radius:20px;display:inline-block;">ISSN 0012-7353 · Scopus Q3</div>
+            </div>
+          </div>
+          <div class="port-card-body" style="display:flex;flex-direction:column;justify-content:center;">
+            <h3 style="font-size:18px;">Peace and Region Semester, a strategy for comprehensive university training and contribution to regional development</h3>
+            <p style="margin-top:8px;">Rojas-Forero, G.D., <strong>Rojas-Penagos, J.S.</strong>, & Bermeo-Andrade, H.</p>
+            <p style="margin-top:10px;">Estudio con técnicas de análisis factorial por componentes principales (KMO, Cronbach's Alpha), test de Kruskal-Wallis, y análisis de texto cualitativo sobre 105 egresados. Validación estadística de que SPR contribuye significativamente a la formación integral.</p>
+            <div class="port-tags" style="margin-top:12px;">
+              <span class="port-tag">Análisis Factorial (PCA)</span>
+              <span class="port-tag green">Kruskal-Wallis</span>
+              <span class="port-tag warm">Cronbach's Alpha</span>
+              <span class="port-tag">SPSS</span>
+              <span class="port-tag green">Atlas.TI</span>
+              <span class="port-tag warm">R</span>
+            </div>
+            <a href="https://doi.org/10.15446/dyna.v92n237.117379" target="_blank" class="port-link" style="margin-top:14px;">Ver artículo completo (DOI) <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg></a>
+          </div>
+        </div>
+      </div>
+    </div></div>
+    <div data-lang="en"><div class="port-grid">
+      <div class="port-card" style="grid-column:1/-1;">
+        <div style="display:grid;grid-template-columns:280px 1fr;min-height:200px;">
+          <div style="background:linear-gradient(135deg,#37474f,#455a64);display:flex;align-items:center;justify-content:center;padding:24px;">
+            <div style="text-align:center;color:white;">
+              <div style="font-family:'Playfair Display',serif;font-size:36px;font-weight:900;">DYNA</div>
+              <div style="font-size:11px;margin-top:4px;opacity:.8;">Rev. Universidad Nacional de Colombia</div>
+              <div style="font-size:11px;margin-top:2px;opacity:.7;">Vol. 92(237) · pp. 38–45 · 2025</div>
+              <div style="margin-top:12px;font-size:10px;padding:4px 12px;border:1px solid rgba(255,255,255,.3);border-radius:20px;display:inline-block;">ISSN 0012-7353 · Scopus Q3</div>
+            </div>
+          </div>
+          <div class="port-card-body" style="display:flex;flex-direction:column;justify-content:center;">
+            <h3 style="font-size:18px;">Peace and Region Semester, a strategy for comprehensive university training and contribution to regional development</h3>
+            <p style="margin-top:8px;">Rojas-Forero, G.D., <strong>Rojas-Penagos, J.S.</strong>, & Bermeo-Andrade, H.</p>
+            <p style="margin-top:10px;">Study using principal component factor analysis (KMO, Cronbach's Alpha), Kruskal-Wallis test, and qualitative text analysis on 105 graduates. Statistical validation that PRS significantly contributes to comprehensive education.</p>
+            <div class="port-tags" style="margin-top:12px;">
+              <span class="port-tag">Factor Analysis (PCA)</span>
+              <span class="port-tag green">Kruskal-Wallis</span>
+              <span class="port-tag warm">Cronbach's Alpha</span>
+              <span class="port-tag">SPSS</span>
+              <span class="port-tag green">Atlas.TI</span>
+              <span class="port-tag warm">R</span>
+            </div>
+            <a href="https://doi.org/10.15446/dyna.v92n237.117379" target="_blank" class="port-link" style="margin-top:14px;">View full article (DOI) <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg></a>
+          </div>
+        </div>
+      </div>
+    </div></div>
+  </div>
+
+  <!-- CERTIFICATIONS -->
+  <div class="port-category">
+    <div class="port-cat-title"><span data-lang="es">Certificaciones</span><span data-lang="en">Certifications</span></div>
+    <div data-lang="es"><div class="port-cert-grid">
+      <div class="port-cert-card"><img class="cert-icon-img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/500px-Google_%22G%22_logo.svg.png" alt="Google"><div class="port-cert-info"><h4>Google Advanced Data Analytics</h4><p>Coursera · Feb 2026</p><p><a href="https://drive.google.com/file/d/11yDJOQ0YexrexMPXmjkbGKN9PXmfxLRr/view?usp=drive_link" target="_blank" class="port-link">Ver Certificado <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg></a></p></div></div>
+      <div class="port-cert-card"><img class="cert-icon-img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/500px-Google_%22G%22_logo.svg.png" alt="Google"><div class="port-cert-info"><h4>Google Data Analytics</h4><p>Coursera · Feb 2026</p><p><a href="https://drive.google.com/file/d/1VZhSmnWb7DvhUvYUfnrEIXT-2iOeV4s5/view?usp=drive_link" target="_blank" class="port-link">Ver Certificado <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg></a></p></div></div>
+      <div class="port-cert-card"><img class="cert-icon-img" src="https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/platzi.png" alt="Platzi"><div class="port-cert-info"><h4>Ruta Análisis y Visualización de Datos</h4><p>Platzi · Ene 2026</p><p><a href="https://drive.google.com/file/d/1iSQK6F1GRrh-fBou82oFhoKfTY6HI_V5/view?usp=drive_link" target="_blank" class="port-link">Ver Certificado <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg></a></p></div></div>
+      <div class="port-cert-card"><img class="cert-icon-img" src="https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/platzi.png" alt="Platzi"><div class="port-cert-info"><h4>Estadística Inferencial para Data Science e IA</h4><p>Platzi · Ene 2026</p><p><a href="https://drive.google.com/file/d/1lTFgloNKkHcaNXDGb4evhnhQEeYSu_vF/view?usp=drive_link" target="_blank" class="port-link">Ver Certificado <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg></a></p></div></div>
+      <div class="port-cert-card"><img class="cert-icon-img" src="https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/platzi.png" alt="Platzi"><div class="port-cert-info"><h4>Python para Ciencia de Datos</h4><p>Platzi · Ene 2026</p><p><a href="https://drive.google.com/file/d/15cf6tL9C3ThKCkIbgxgsNnK_bN0ZjAnL/view?usp=drive_link" target="_blank" class="port-link">Ver Certificado <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg></a></p></div></div>
+      <div class="port-cert-card"><img class="cert-icon-img" src="https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/platzi.png" alt="Platzi"><div class="port-cert-info"><h4>Fundamentos de Python</h4><p>Platzi · Ene 2026</p><p><a href="https://drive.google.com/file/d/13VVdghQ3bsRBb2MMKPkPJupagdF2n0vP/view?usp=drive_link" target="_blank" class="port-link">Ver Certificado <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg></a></p></div></div>
+      <div class="port-cert-card"><img class="cert-icon-img" src="https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/platzi.png" alt="Platzi"><div class="port-cert-info"><h4>Power BI Avanzado</h4><p>Platzi · Ene 2026</p><p><a href="https://drive.google.com/file/d/1OPwGee-imUM-Fgs1Ey5L9yBKNYZBRtY4/view?usp=drive_link" target="_blank" class="port-link">Ver Certificado <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg></a></p></div></div>
+      <div class="port-cert-card"><img class="cert-icon-img" src="https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/platzi.png" alt="Platzi"><div class="port-cert-info"><h4>Excel Avanzado para Análisis de Datos</h4><p>Platzi · Ene 2026</p><p><a href="https://drive.google.com/file/d/1Gdni7DtfaJrecKoBw_MIop-BqgvGajY3/view?usp=drive_link" target="_blank" class="port-link">Ver Certificado <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg></a></p></div></div>
+      <div class="port-cert-card"><img class="cert-icon-img" src="https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/platzi.png" alt="Platzi"><div class="port-cert-info"><h4>Excel Avanzado con Macros</h4><p>Platzi · Ene 2026</p><p><a href="https://drive.google.com/file/d/1E-TONV9XFHYr4SFAfeadhO9z9_h03ZUk/view?usp=drive_link" target="_blank" class="port-link">Ver Certificado <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg></a></p></div></div>
+      <div class="port-cert-card"><img class="cert-icon-img" src="https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/platzi.png" alt="Platzi"><div class="port-cert-info"><h4>Visualización de Datos y Storytelling</h4><p>Platzi · Ene 2026</p><p><a href="https://drive.google.com/file/d/18bmKF61vJBMTIyOlmT-DPo3ztv4mp7Cf/view?usp=drive_link" target="_blank" class="port-link">Ver Certificado <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg></a></p></div></div>
+      <div class="port-cert-card"><img class="cert-icon-img" src="https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/platzi.png" alt="Platzi"><div class="port-cert-info"><h4>Toma de Decisiones Basadas en Datos</h4><p>Platzi · Ene 2026</p><p><a href="https://drive.google.com/file/d/1ekx8jhK4eoTRYnuTO2d5mY3mLyOMSzgs/view?usp=drive_link" target="_blank" class="port-link">Ver Certificado <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg></a></p></div></div>
+      <div class="port-cert-card"><img class="cert-icon-img" src="https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/platzi.png" alt="Platzi"><div class="port-cert-info"><h4>Fundamentos de Ingeniería de Software</h4><p>Platzi · Ene 2026</p><p><a href="https://drive.google.com/file/d/16hZ7k443m3ccLsqHOoQc91qhOXG48TQ_/view?usp=drive_link" target="_blank" class="port-link">Ver Certificado <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg></a></p></div></div>
+      <div class="port-cert-card"><img class="cert-icon-img" src="https://upload.wikimedia.org/wikipedia/commons/d/d9/Unibague_ESCUDO.jpg" alt="Unibagué"><div class="port-cert-info"><h4>Ingeniero Industrial</h4><p>Universidad de Ibagué · Ene 2024</p><p><a href="https://drive.google.com/file/d/1dDywisPSSh6WTqnXKATEvaRKTbh9Qemo/view?usp=drive_link" target="_blank" class="port-link">Ver Certificado <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg></a></p></div></div>
+      <div class="port-cert-card"><img class="cert-icon-img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Sena_Colombia_logo.svg/3840px-Sena_Colombia_logo.svg.png" alt="SENA"><div class="port-cert-info"><h4>Técnico en Sistemas</h4><p>SENA · Nov 2014</p><p><a href="https://drive.google.com/file/d/14I11NjF4SEjYPO4DIeeixg2imuL9ILJP/view?usp=drive_link" target="_blank" class="port-link">Ver Certificado <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg></a></p></div></div>
+    </div>
+  </div>
+
+  </div>
+    <div data-lang="en"><div class="port-cert-grid">
+      <div class="port-cert-card"><img class="cert-icon-img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/500px-Google_%22G%22_logo.svg.png" alt="Google"><div class="port-cert-info"><h4>Google Advanced Data Analytics</h4><p>Coursera · Feb 2026</p><p><a href="https://drive.google.com/file/d/11yDJOQ0YexrexMPXmjkbGKN9PXmfxLRr/view?usp=drive_link" target="_blank" class="port-link">View Certificate <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg></a></p></div></div>
+      <div class="port-cert-card"><img class="cert-icon-img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/500px-Google_%22G%22_logo.svg.png" alt="Google"><div class="port-cert-info"><h4>Google Data Analytics</h4><p>Coursera · Feb 2026</p><p><a href="https://drive.google.com/file/d/1VZhSmnWb7DvhUvYUfnrEIXT-2iOeV4s5/view?usp=drive_link" target="_blank" class="port-link">View Certificate <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg></a></p></div></div>
+      <div class="port-cert-card"><img class="cert-icon-img" src="https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/platzi.png" alt="Platzi"><div class="port-cert-info"><h4>Data Analysis & Visualization Track</h4><p>Platzi · Jan 2026</p><p><a href="https://drive.google.com/file/d/1iSQK6F1GRrh-fBou82oFhoKfTY6HI_V5/view?usp=drive_link" target="_blank" class="port-link">View Certificate <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg></a></p></div></div>
+      <div class="port-cert-card"><img class="cert-icon-img" src="https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/platzi.png" alt="Platzi"><div class="port-cert-info"><h4>Inferential Statistics for Data Science & AI</h4><p>Platzi · Jan 2026</p><p><a href="https://drive.google.com/file/d/1lTFgloNKkHcaNXDGb4evhnhQEeYSu_vF/view?usp=drive_link" target="_blank" class="port-link">View Certificate <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg></a></p></div></div>
+      <div class="port-cert-card"><img class="cert-icon-img" src="https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/platzi.png" alt="Platzi"><div class="port-cert-info"><h4>Python for Data Science</h4><p>Platzi · Jan 2026</p><p><a href="https://drive.google.com/file/d/15cf6tL9C3ThKCkIbgxgsNnK_bN0ZjAnL/view?usp=drive_link" target="_blank" class="port-link">View Certificate <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg></a></p></div></div>
+      <div class="port-cert-card"><img class="cert-icon-img" src="https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/platzi.png" alt="Platzi"><div class="port-cert-info"><h4>Python Fundamentals</h4><p>Platzi · Jan 2026</p><p><a href="https://drive.google.com/file/d/13VVdghQ3bsRBb2MMKPkPJupagdF2n0vP/view?usp=drive_link" target="_blank" class="port-link">View Certificate <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg></a></p></div></div>
+      <div class="port-cert-card"><img class="cert-icon-img" src="https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/platzi.png" alt="Platzi"><div class="port-cert-info"><h4>Advanced Power BI</h4><p>Platzi · Jan 2026</p><p><a href="https://drive.google.com/file/d/1OPwGee-imUM-Fgs1Ey5L9yBKNYZBRtY4/view?usp=drive_link" target="_blank" class="port-link">View Certificate <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg></a></p></div></div>
+      <div class="port-cert-card"><img class="cert-icon-img" src="https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/platzi.png" alt="Platzi"><div class="port-cert-info"><h4>Advanced Excel for Data Analysis</h4><p>Platzi · Jan 2026</p><p><a href="https://drive.google.com/file/d/1Gdni7DtfaJrecKoBw_MIop-BqgvGajY3/view?usp=drive_link" target="_blank" class="port-link">View Certificate <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg></a></p></div></div>
+      <div class="port-cert-card"><img class="cert-icon-img" src="https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/platzi.png" alt="Platzi"><div class="port-cert-info"><h4>Advanced Excel with Macros</h4><p>Platzi · Jan 2026</p><p><a href="https://drive.google.com/file/d/1E-TONV9XFHYr4SFAfeadhO9z9_h03ZUk/view?usp=drive_link" target="_blank" class="port-link">View Certificate <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg></a></p></div></div>
+      <div class="port-cert-card"><img class="cert-icon-img" src="https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/platzi.png" alt="Platzi"><div class="port-cert-info"><h4>Data Visualization & Storytelling</h4><p>Platzi · Jan 2026</p><p><a href="https://drive.google.com/file/d/18bmKF61vJBMTIyOlmT-DPo3ztv4mp7Cf/view?usp=drive_link" target="_blank" class="port-link">View Certificate <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg></a></p></div></div>
+      <div class="port-cert-card"><img class="cert-icon-img" src="https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/platzi.png" alt="Platzi"><div class="port-cert-info"><h4>Data-Driven Decision Making</h4><p>Platzi · Jan 2026</p><p><a href="https://drive.google.com/file/d/1ekx8jhK4eoTRYnuTO2d5mY3mLyOMSzgs/view?usp=drive_link" target="_blank" class="port-link">View Certificate <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg></a></p></div></div>
+      <div class="port-cert-card"><img class="cert-icon-img" src="https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/platzi.png" alt="Platzi"><div class="port-cert-info"><h4>Software Engineering Fundamentals</h4><p>Platzi · Jan 2026</p><p><a href="https://drive.google.com/file/d/16hZ7k443m3ccLsqHOoQc91qhOXG48TQ_/view?usp=drive_link" target="_blank" class="port-link">View Certificate <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg></a></p></div></div>
+      <div class="port-cert-card"><img class="cert-icon-img" src="https://upload.wikimedia.org/wikipedia/commons/d/d9/Unibague_ESCUDO.jpg" alt="Unibagué"><div class="port-cert-info"><h4>Industrial Engineer</h4><p>University of Ibagué · Jan 2024</p><p><a href="https://drive.google.com/file/d/1dDywisPSSh6WTqnXKATEvaRKTbh9Qemo/view?usp=drive_link" target="_blank" class="port-link">View Certificate <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg></a></p></div></div>
+      <div class="port-cert-card"><img class="cert-icon-img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Sena_Colombia_logo.svg/3840px-Sena_Colombia_logo.svg.png" alt="SENA"><div class="port-cert-info"><h4>IT Technician</h4><p>SENA · Nov 2014</p><p><a href="https://drive.google.com/file/d/14I11NjF4SEjYPO4DIeeixg2imuL9ILJP/view?usp=drive_link" target="_blank" class="port-link">View Certificate <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg></a></p></div></div>
+    </div>
+  </div>
+
+  </div>
+  </div>
+
+  <div style="text-align:center;padding:40px 0 80px;color:var(--muted);font-size:13px;">
+    © 2026 Juan Sebastián Rojas Penagos · Ibagué, Colombia
+  </div>
+</section>
+
+<!-- NAV -->
+<nav class="nav-bar">
+  <a href="#cv">CV</a>
+  <a href="#portfolio"><span data-lang="es">Portafolio</span><span data-lang="en">Portfolio</span></a>
+  <div class="nav-sep"></div>
+  <button id="btn-es" class="lang-active" onclick="setLang('es')">Español</button>
+  <button id="btn-en" onclick="setLang('en')">English</button>
+</nav>
+
+<script>
+function setLang(lang) {
+  document.body.classList.toggle('lang-en', lang === 'en');
+  document.getElementById('btn-es').classList.toggle('lang-active', lang === 'es');
+  document.getElementById('btn-en').classList.toggle('lang-active', lang === 'en');
+  document.documentElement.lang = lang;
+}
+</script>
+</body>
+</html>
